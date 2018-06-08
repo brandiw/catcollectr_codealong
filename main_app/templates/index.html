@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block content %}
+  <h1>Welcome to CatCollectr /ᐠ｡‸｡ᐟ\ﾉ</h1>
+  {% for cat in cats %}
+    <a href="/{{cat.id}}">
+      <p>Name: {{ cat.name }}</p>
+    </a>
+    {% if cat.age < 1 %}
+      <p>Age: Itty Bitty Kitty!</p>
+    {% else %}
+      <p>Age: {{ cat.age }}</p>
+    {% endif %}
+    <hr>
+  {% endfor %}
+
+  <hr>
+
+  {% if user_loggedin %}
+    <form action="post_url/" method="post">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <input type="submit" value="Add Cat" class="btn">
+    </form>
+  {% else %}
+    <h3>Sorry, but you must be logged in to add your cat!</h3>
+  {% endif %}
+
+{% endblock %}
